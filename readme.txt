@@ -1,6 +1,6 @@
 === Filmied ===
 Contributors: Filmtied
-Tags: filmtied, movie, imdb, film, link
+Tags: filmtied, movie, imdb, film, link, movies, movie database, entertainment, earn online, affiliate program
 Requires at least: 3.0
 Tested up to: 3.5.1
 Stable tag: 0.1
