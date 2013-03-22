@@ -1,9 +1,9 @@
 === Filmied ===
 Contributors: Filmtied
-Tags: filmtied, movie, imdb, film, link, movies, movie database, entertainment, earn online, affiliate program
+Tags: filmtied, movie, imdb, film, link
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 0.1
+Stable tag: 0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,8 @@ No screenshots for now.
 = 0.1 =
 The first plugin version.
 
+= 0.2 =
+Memcache(d) cache caching
 
 == Upgrade Notice ==
 No upgrades for now.

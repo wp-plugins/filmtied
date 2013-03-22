@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Filmtied
-Version: 0.1
+Version: 0.2
 Description: Replace IMDB links with Filmtied links
 Author: Filmtied Team
 Author URI: http://www.filmtied.com/
@@ -132,6 +132,10 @@ define('FILMTIED_API_SERVER_ADDRESS', 'http://api.filmtied.com/');
                 $params['cacheServerCharset']         = DB_CHARSET;
                 $params['cacheServerTable']           = $table_prefix . 'filmtied_cache';
                 $params['cacheServerAutoCreateTable'] = true;
+            } elseif ($cacheType === "memcache" || $cacheType === "memcached") {
+                $params['cache'] = $cacheType;
+                $params['cacheServerAddress'] = get_option('filmtied_cache_host');
+                $params['cacheServerPort'] = get_option('filmtied_cache_port');
             }
 
             $token = get_option('filmtied_api_token');
@@ -204,7 +208,6 @@ define('FILMTIED_API_SERVER_ADDRESS', 'http://api.filmtied.com/');
                 add_option('filmtied_cache_dir', $cacheDir);
             } elseif ($cacheType === 'database') {
 
-
             }
         }
 
@@ -215,6 +218,8 @@ define('FILMTIED_API_SERVER_ADDRESS', 'http://api.filmtied.com/');
             delete_option('filmtied_api_token');
             delete_option('filmtied_cache_type');
             delete_option('filmtied_cache_dir');
+            delete_option('filmtied_cache_host');
+            delete_option('filmtied_cache_port');
         }
 
         public static function adminMenu()
