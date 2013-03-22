@@ -1,4 +1,4 @@
-=== Filmied ===
+=== Filmtied ===
 Contributors: Filmtied
 Tags: filmtied, movie, imdb, film, link
 Requires at least: 3.0
