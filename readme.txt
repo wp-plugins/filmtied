@@ -52,7 +52,7 @@ No screenshots for now.
 The first plugin version.
 
 = 0.2 =
-Memcache(d) cache caching
+Memcache(d) caching
 
 == Upgrade Notice ==
 No upgrades for now.
