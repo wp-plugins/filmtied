@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Filmtied
-Version: 0.2
+Version: 0.3
 Description: Replace IMDB links with Filmtied links
 Author: Filmtied Team
 Author URI: http://www.filmtied.com/
@@ -20,16 +20,18 @@ define('FILMTIED_API_SERVER_ADDRESS', 'http://api.filmtied.com/');
 
         public static function updateContent($content)
         {
-            switch (get_option('filmtied_link_position')) {
-                case 'replace':
-                    $content = self::replaceLinks($content);
-                    break;
-                case 'right':
-                    $content = self::addLinks($content, 'right');
-                    break;
-                case 'left':
-                    $content = self::addLinks($content, 'left');
-                    break;
+            if (!self::containsFilmtiedLinks($content)) {
+                switch (get_option('filmtied_link_position')) {
+                    case 'replace':
+                        $content = self::replaceLinks($content);
+                        break;
+                    case 'right':
+                        $content = self::addLinks($content, 'right');
+                        break;
+                    case 'left':
+                        $content = self::addLinks($content, 'left');
+                        break;
+                }
             }
 
             return $content;
@@ -209,6 +211,10 @@ define('FILMTIED_API_SERVER_ADDRESS', 'http://api.filmtied.com/');
             } elseif ($cacheType === 'database') {
 
             }
+
+            add_option('filmtied_trigger_display', '1');
+            add_option('filmtied_trigger_publish', '0');
+
         }
 
         public static function pluginRemove()
@@ -220,6 +226,8 @@ define('FILMTIED_API_SERVER_ADDRESS', 'http://api.filmtied.com/');
             delete_option('filmtied_cache_dir');
             delete_option('filmtied_cache_host');
             delete_option('filmtied_cache_port');
+            delete_option('filmtied_trigger_display');
+            delete_option('filmtied_trigger_publish');
         }
 
         public static function adminMenu()
@@ -234,6 +242,24 @@ define('FILMTIED_API_SERVER_ADDRESS', 'http://api.filmtied.com/');
             }
             include(plugin_dir_path(__FILE__) . 'options.php');
         }
+
+
+        public static function containsFilmtiedLinks($content)
+        {
+            $pos = strpos($content, 'http://www.filmtied.com/');
+
+            if ($pos === false) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        public static function updateContentOnPublish($data, $post)
+        {
+            $data['post_content'] = $post['post_content'] = addslashes(self::updateContent(stripslashes($post['post_content'])));
+            return $data;
+        }
     }
 
     if (is_admin()) {
@@ -241,6 +267,13 @@ define('FILMTIED_API_SERVER_ADDRESS', 'http://api.filmtied.com/');
         register_deactivation_hook(__FILE__, array('Filmtied', 'pluginRemove'));
         add_action('admin_menu', array('Filmtied', 'adminMenu'));
     }
-    add_filter('the_content', array('Filmtied', 'updateContent'));
+
+    if (get_option('filmtied_trigger_display') == 1) {
+        add_filter('the_content', array('Filmtied', 'updateContent'));
+    }
+
+    if (get_option('filmtied_trigger_publish') == 1) {
+        add_filter('wp_insert_post_data', array('Filmtied', 'updateContentOnPublish'), 99, 2);
+    }
 
 }

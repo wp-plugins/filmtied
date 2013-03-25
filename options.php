@@ -21,6 +21,20 @@
                     </tr>
 
                     <tr valign="top">
+                    <th scope="row">On post display</th>
+                    <td>
+                        <input type="checkbox" name="filmtied_trigger_display" value="1" <?= (get_option('filmtied_trigger_display') == '1') ? 'checked="checked"' : '' ?> />
+                    </td>
+                    </tr>
+
+                    <tr valign="top">
+                    <th scope="row">On post save</th>
+                    <td>
+                        <input type="checkbox" name="filmtied_trigger_publish" value="1" <?= (get_option('filmtied_trigger_publish') == '1') ? 'checked="checked"' : '' ?> />
+                    </td>
+                    </tr>
+
+                    <tr valign="top">
                     <th scope="row">API token</th>
                     <td><input name="filmtied_api_token" type="text" id="filmtied_api_token" value="<?php echo get_option('filmtied_api_token'); ?>" /> <br/></td>
                     </tr>
@@ -71,7 +85,7 @@
             </div>
 
             <input type="hidden" name="action" value="update" />
-            <input type="hidden" name="page_options" value="filmtied_affiliate_id,filmtied_api_token,filmtied_link_position,filmtied_cache_type,filmtied_cache_dir,filmtied_cache_host,filmtied_cache_port" />
+            <input type="hidden" name="page_options" value="filmtied_affiliate_id,filmtied_api_token,filmtied_link_position,filmtied_cache_type,filmtied_cache_dir,filmtied_cache_host,filmtied_cache_port,filmtied_trigger_display,filmtied_trigger_publish" />
             <?php if (function_exists('submit_button')): ?>
                 <?php submit_button(); ?>
             <?php else: ?>

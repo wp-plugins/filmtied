@@ -3,7 +3,7 @@ Contributors: Filmtied
 Tags: filmtied, movie, imdb, film, link
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 0.2
+Stable tag: 0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,10 @@ The first plugin version.
 
 = 0.2 =
 Memcache(d) caching
+
+= 0.3 =
+From now you can choose whether Filmtied's links should be added on post display or when you save the post.
+
 
 == Upgrade Notice ==
 No upgrades for now.
